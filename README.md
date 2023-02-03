@@ -18,3 +18,7 @@ This plugin works through [injection](https://en.wikipedia.org/wiki/DLL_injectio
 lr2.cpp and setupjmp.cpp are intentionally omitted in this repo. 
 
 Please report crashes/bugs found while using. Thanks.
+
+## Credit
+
+Thanks mat for his precious advice and help, and thanks to all the people who tested and reported bugs.
