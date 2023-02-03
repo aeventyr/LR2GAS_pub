@@ -135,6 +135,7 @@
     <ClCompile Include="..\src\LR2GAS\gas.cpp" />
     <ClCompile Include="..\src\LR2GAS\gauge.cpp" />
     <ClCompile Include="..\src\LR2GAS\hooks.cpp" />
+    <ClCompile Include="..\src\LR2GAS\lr2.cpp" />
     <ClCompile Include="..\src\LR2GAS\memjmp.cpp" />
     <ClCompile Include="..\src\LR2GAS\setupjmp.cpp" />
   </ItemGroup>
@@ -146,6 +147,9 @@
     <ClInclude Include="..\src\LR2GAS\lr2.h" />
     <ClInclude Include="..\src\LR2GAS\memjmp.h" />
     <ClInclude Include="..\src\LR2GAS\setupjmp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

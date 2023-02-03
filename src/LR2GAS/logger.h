@@ -2,11 +2,11 @@
 
 #include <cstdio>
 
-#define ENABLE_LOGGING
+//#define ENABLE_LOGGING
 
 #ifdef ENABLE_LOGGING
 
-#define console_log(...) fprintf(stdout, __VA_ARGS__)
+#define console_log(...) fprintf(stderr, __VA_ARGS__)
 
 #else
 

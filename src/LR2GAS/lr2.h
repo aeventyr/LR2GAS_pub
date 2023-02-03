@@ -61,30 +61,31 @@ namespace LR2
     };
     inline const int GRAPH_SAMPLE_COUNT = 1000;
 
-    inline int* bmsNotesNum = (int*)0xDC27C;
-    inline int* bmsTotal = (int*)0xDC28C;
+    inline int* bmsNotesNum;
+    inline int* bmsTotal;
 
-    inline GAUGE_TYPE* gaugeType = (GAUGE_TYPE*)0xFF840;
-    inline BATTLE_TYPE* battleType = (BATTLE_TYPE*)0xFF884;
-    inline char* selectPressed = (char*)0x11F5D1;
-    inline double* gaugeValue = (double*)0x197200;
-    inline double* gaugeValueDisp = (double*)0x197210;
-    inline int* totalNotes = (int*)0x197278;
-    inline int* runningNotes = (int*)0x1972A4;
-    inline LAMP_TYPE* resultLamp = (LAMP_TYPE*)0x1972A8;
-    inline int* resultGraph = (int*)0x1973F4;
+    inline GAUGE_TYPE* gaugeType;
+    inline BATTLE_TYPE* battleType;
+    inline char* selectPressed;
+    inline double* gaugeValue;
+    inline double* gaugeValueDisp;
+    inline int* totalNotes;
+    inline int* runningNotes;
+    inline LAMP_TYPE* resultLamp;
+    inline int* resultGraph;
     struct ReplayCmd
     {
         int time, type, value;
     };  typedef struct ReplayCmd ReplayCmd;
-    inline ReplayCmd** replayData = (ReplayCmd**)(0x19F170);
-    inline int* replayIdx = (int*)0x19F178;
-    inline int* replayStatus = (int*)0x19F17C;
-    inline char* gbattleFlag = (char*)0x19F561;
-    inline int* expertType = (int*)0x19F688;
+    inline ReplayCmd** replayData;
+    inline int* replayIdx;
+    inline int* replayStatus;
+    inline char* gbattleFlag;
+    inline int* expertType;
 
-    inline auto pfAppendReplay =
-        (int(__cdecl*) (int*, int, char, short))(0x4C0C00);
+    inline int(__cdecl *pfAppendReplay) (int*, int, char, short);
+
+    void initOffsets();
 
 }
 

@@ -4,10 +4,11 @@
 #include <thread>
 
 #include "setupjmp.h"
+#include "lr2.h"
 
 void Setup(const HMODULE instance)
 {
-    std::cout << "LR2GAS" << std::endl;
+    LR2::initOffsets();
     SetupJmps();
     while (1)
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
