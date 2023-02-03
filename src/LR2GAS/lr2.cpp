@@ -14,7 +14,7 @@ void LR2::initOffsets()
         osInfo.dwOSVersionInfoSize = sizeof(osInfo);
         RtlGetVersion(&osInfo);
     }
-    if (osInfo.dwMajorVersion == 7)
+    if (osInfo.dwMajorVersion <= 6) // win 7
     {
         bmsNotesNum = (int*)0xCC27C;
         bmsTotal = (int*)0xCC28C;
@@ -34,29 +34,8 @@ void LR2::initOffsets()
         gbattleFlag = (char*)0x18F561;
         expertType = (int*)0x18F688;
     }
-    else if (osInfo.dwMajorVersion == 10)
+    else // win 10
     {
-        bmsNotesNum = (int*)0xDC27C;
-        bmsTotal = (int*)0xDC28C;
-
-        gaugeType = (GAUGE_TYPE*)0xFF840;
-        battleType = (BATTLE_TYPE*)0xFF884;
-        selectPressed = (char*)0x11F5D1;
-        gaugeValue = (double*)0x197200;
-        gaugeValueDisp = (double*)0x197210;
-        totalNotes = (int*)0x197278;
-        runningNotes = (int*)0x1972A4;
-        resultLamp = (LAMP_TYPE*)0x1972A8;
-        resultGraph = (int*)0x1973F4;
-        replayData = (ReplayCmd**)0x19F170;
-        replayIdx = (int*)0x19F178;
-        replayStatus = (int*)0x19F17C;
-        gbattleFlag = (char*)0x19F561;
-        expertType = (int*)0x19F688;
-    }
-    else
-    {
-        //MessageBox(NULL, "You need at least Windows 10.", "Version Not Supported", MB_OK);
         bmsNotesNum = (int*)0xDC27C;
         bmsTotal = (int*)0xDC28C;
 
