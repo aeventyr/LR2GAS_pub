@@ -3,7 +3,7 @@
 unsigned int GAS::notesNum = 0;
 double GAS::bmsTotal = 300;
 bool GAS::expertMode = false;
-GAUGE_TYPE GAS::initialGauge = GAUGE_GROOVE;
+GAUGE_TYPE GAS::initialGauge = (GAUGE_TYPE) -1;
 std::vector<Gauge> GAS::gaugeArr = std::vector<Gauge>();
 unsigned int GAS::gaugeCycleIdx = 0;
 

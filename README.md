@@ -5,7 +5,7 @@ A re-written version of LR2GAS based on [mat's ](https://github.com/MatVeiQaaa/L
 ## Functionalities
 
  - Allows switching between P-Attack, Hazard, Hard, Groove and Easy gauges during normal play. 
-   Gauges higher than the one you choosed will not be switched to.
+   Gauges higher than the one you chosen will not be switched to.
    Disabled when using Battle or G-Battle, during replay or during course mode.
  - Records gauge shifts in replay files.
  - Allows switching between gauge graphs on result screen by pressing the select key.

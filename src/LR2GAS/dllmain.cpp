@@ -7,6 +7,7 @@
 
 void Setup(const HMODULE instance)
 {
+    std::cout << "LR2GAS" << std::endl;
     SetupJmps();
     while (1)
         std::this_thread::sleep_for(std::chrono::milliseconds(200));

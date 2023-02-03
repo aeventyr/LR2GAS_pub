@@ -146,11 +146,11 @@ void onRefreshResult()
     }
 }
 
-void onLeaveResult()
+void onEnterSongSelect()
 {
     // restore gauge
-    console_log("exit result\n");
-    *gaugeType = (GAUGE_TYPE)GAS::initialGauge;
+    if (GAS::initialGauge >= 0)
+        *gaugeType = GAS::initialGauge;
 }
 
 

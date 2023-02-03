@@ -66,7 +66,7 @@ namespace LR2
 
     inline GAUGE_TYPE* gaugeType = (GAUGE_TYPE*)0xFF840;
     inline BATTLE_TYPE* battleType = (BATTLE_TYPE*)0xFF884;
-    inline bool* selectPressed = (bool*)0x11F5D0;
+    inline char* selectPressed = (char*)0x11F5D1;
     inline double* gaugeValue = (double*)0x197200;
     inline double* gaugeValueDisp = (double*)0x197210;
     inline int* totalNotes = (int*)0x197278;
@@ -80,7 +80,7 @@ namespace LR2
     inline ReplayCmd** replayData = (ReplayCmd**)(0x19F170);
     inline int* replayIdx = (int*)0x19F178;
     inline int* replayStatus = (int*)0x19F17C;
-    inline bool* gbattleFlag = (bool*)0x19F561;
+    inline char* gbattleFlag = (char*)0x19F561;
     inline int* expertType = (int*)0x19F688;
 
     inline auto pfAppendReplay =

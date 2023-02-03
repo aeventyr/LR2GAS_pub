@@ -12,5 +12,5 @@ void onJudgeNote();
 void onRecordGraphSample();
 void onEnterResult();
 void onRefreshResult();
-void onLeaveResult();
+void onEnterSongSelect();
 
