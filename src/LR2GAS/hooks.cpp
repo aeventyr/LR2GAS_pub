@@ -12,6 +12,21 @@ bool getCond()
         *expertType != -1);
 }
 
+void onParseChart()
+{
+    int total;
+    int notes;
+    __asm
+    {
+        PUSH[ebp + 0xDC]
+        POP notes
+        PUSH[ebp + 0xEC]
+        POP total
+    };
+    GAS::notesNum = notes;
+    GAS::bmsTotal = total;
+}
+
 void onInitPlay()
 {
     // record gauge

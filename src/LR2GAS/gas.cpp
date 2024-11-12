@@ -51,6 +51,7 @@ double GAS::GetHealthMultiplier()
 	else
 		tNotes = 1.0;
 	// low total multiplier
-	double tTotal = (bmsTotal <= 80) ? (10) : (160.0 / (bmsTotal - 80));
+	int tTotalInv = std::min(10, std::max(1, int(bmsTotal - 80) / 16));
+	double tTotal = 10.0 / tTotalInv;
 	return std::max(tTotal, tNotes);
 }

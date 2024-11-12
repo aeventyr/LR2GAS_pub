@@ -6,6 +6,7 @@
 #include "memjmp.h"
 
 bool getCond();
+void onParseChart();
 void onInitPlay();
 void onInitRetry();
 void onJudgeNote();

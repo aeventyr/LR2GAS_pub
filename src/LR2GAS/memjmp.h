@@ -6,3 +6,4 @@
 
 void __cdecl makeJmp(void* pAddress, void* dwDest, DWORD dwLen);
 void __cdecl makeDetour(void* pAddress, void* dwDest, DWORD dwLen);
+void __cdecl makeDetourSafe(void* pAddress, void* dwDest, DWORD dwLen);
