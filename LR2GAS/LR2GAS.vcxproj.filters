@@ -36,6 +36,9 @@
     <ClCompile Include="..\src\LR2GAS\lr2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\LR2GAS\export.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\LR2GAS\memjmp.h">

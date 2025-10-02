@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\LR2GAS\dllmain.cpp" />
+    <ClCompile Include="..\src\LR2GAS\export.cpp" />
     <ClCompile Include="..\src\LR2GAS\gas.cpp" />
     <ClCompile Include="..\src\LR2GAS\gauge.cpp" />
     <ClCompile Include="..\src\LR2GAS\hooks.cpp" />
