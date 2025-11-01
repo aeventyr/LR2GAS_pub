@@ -6,7 +6,7 @@ using namespace LR2;
 
 bool getCond()
 {
-    return (*battleType == BATTLE_BATTLE ||
+    return ((*battleType == BATTLE_BATTLE && !*gbattleFlag) ||
         *gbattleFlag ||
         *replayStatus == 2 ||
         *expertType != -1);
