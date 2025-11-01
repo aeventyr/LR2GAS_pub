@@ -66,7 +66,8 @@ namespace LR2
 
     inline GAUGE_TYPE* gaugeType;
     inline BATTLE_TYPE* battleType;
-    inline char* selectPressed;
+    inline char* selectPressedP1;
+    inline char* selectPressedP2;
     inline double* gaugeValue;
     inline double* gaugeValueDisp;
     inline int* totalNotes;

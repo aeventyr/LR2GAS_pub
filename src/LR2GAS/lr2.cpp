@@ -38,7 +38,8 @@ void LR2::initOffsets()
 
     gaugeType = (GAUGE_TYPE *)(stack_offset + 0xEF840);
     battleType = (BATTLE_TYPE *)(stack_offset + 0xEF884);
-    selectPressed = (char *)(stack_offset + 0x10F5D1);
+    selectPressedP1 = (char *)(stack_offset + 0x10F5D1);
+    selectPressedP2 = (char *)(stack_offset + 0x10F5E5);
     gaugeValue = (double *)(stack_offset + 0x187200);
     gaugeValueDisp = (double *)(stack_offset + 0x187210);
     totalNotes = (int *)(stack_offset + 0x187278);

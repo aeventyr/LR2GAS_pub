@@ -6,8 +6,7 @@ using namespace LR2;
 
 bool getCond()
 {
-    return (*battleType == BATTLE_BATTLE ||
-        *gbattleFlag ||
+    return ((*battleType == BATTLE_BATTLE && !*gbattleFlag) || 
         *replayStatus == 2 ||
         *expertType != -1);
 }
@@ -143,7 +142,7 @@ void onRefreshResult()
     if (getCond())
         return;
     // cycle through gauges on pressing select 
-    if (*selectPressed == 1)
+    if (*selectPressedP1 == 1 || *selectPressedP2 == 1)
     {
         GAS::gaugeCycleIdx %= GAS::gaugeArr.size();
         Gauge& sel = GAS::gaugeArr[GAS::gaugeCycleIdx];
