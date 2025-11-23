@@ -5,7 +5,6 @@
 #include "logger.h"
 #include "memjmp.h"
 
-bool getCond();
 void onParseChart();
 void onInitPlay();
 void onInitRetry();

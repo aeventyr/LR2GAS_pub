@@ -4,11 +4,16 @@
 
 using namespace LR2;
 
-bool getCond()
+static bool gasBlocked()
 {
     return (*battleType == BATTLE_BATTLE && !*gbattleFlag) ||
         *replayStatus == 2 ||
         *expertType != -1;
+}
+
+static bool canGas()
+{
+    return !GAS::gaugeArr.empty() && !gasBlocked();
 }
 
 void onParseChart()
@@ -32,7 +37,7 @@ void onInitPlay()
     GAUGE_TYPE gauge = *gaugeType;
     GAS::initialGauge = gauge;
 
-    if (getCond())
+    if (gasBlocked())
         return;
     GAS::notesNum = *bmsNotesNum;
     GAS::bmsTotal = *bmsTotal;
@@ -48,7 +53,7 @@ void onInitRetry()
     // restore gauge
     *gaugeType = (GAUGE_TYPE)GAS::initialGauge;
 
-    if (getCond())
+    if (!canGas())
         return;
     GAS::notesNum = *bmsNotesNum;
     GAS::bmsTotal = *bmsTotal;
@@ -61,7 +66,7 @@ void onInitRetry()
 
 void onJudgeNote()
 {
-    if (getCond())
+    if (!canGas())
         return;
 
     JUDGE_TYPE judge;
@@ -109,7 +114,7 @@ void onJudgeNote()
 
 void onRecordGraphSample()
 {
-    if (getCond())
+    if (!canGas())
         return;
 
     for (Gauge& g : GAS::gaugeArr)
@@ -120,7 +125,7 @@ void onRecordGraphSample()
 
 void onEnterResult()
 {
-    if (getCond())
+    if (!canGas())
         return;
 
     // finish up graph
@@ -139,7 +144,7 @@ void onEnterResult()
 
 void onRefreshResult()
 {
-    if (getCond())
+    if (!canGas())
         return;
     // cycle through gauges on pressing select
     if (*selectPressedP1 == 1 || *selectPressedP2 == 1)
