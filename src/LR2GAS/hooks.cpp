@@ -6,9 +6,9 @@ using namespace LR2;
 
 bool getCond()
 {
-    return ((*battleType == BATTLE_BATTLE && !*gbattleFlag) || 
+    return (*battleType == BATTLE_BATTLE && !*gbattleFlag) ||
         *replayStatus == 2 ||
-        *expertType != -1);
+        *expertType != -1;
 }
 
 void onParseChart()
@@ -38,7 +38,7 @@ void onInitPlay()
     GAS::bmsTotal = *bmsTotal;
 
     console_log("play: gauge: %s\t", GAUGE_TYPE_STR[gauge]);
-    console_log("notes: %d\ttotal: %d\n", 
+    console_log("notes: %d\ttotal: %d\n",
         GAS::notesNum, (int)GAS::bmsTotal);
     GAS::Init();
 }
@@ -54,7 +54,7 @@ void onInitRetry()
     GAS::bmsTotal = *bmsTotal;
 
     console_log("retry: gauge: %s\t", GAUGE_TYPE_STR[*gaugeType]);
-    console_log("notes: %d\ttotal: %d\n", 
+    console_log("notes: %d\ttotal: %d\n",
         GAS::notesNum, (int)GAS::bmsTotal);
     GAS::Init();
 }
@@ -96,7 +96,7 @@ void onJudgeNote()
             (*replayData)[*replayIdx - 1] = temp;
         }
 
-        console_log("judge:%d\tgauge:%s\t", 
+        console_log("judge:%d\tgauge:%s\t",
             judge, GAUGE_TYPE_STR[displayGauge.getType()]);
         for (Gauge& g : GAS::gaugeArr)
         {
@@ -141,7 +141,7 @@ void onRefreshResult()
 {
     if (getCond())
         return;
-    // cycle through gauges on pressing select 
+    // cycle through gauges on pressing select
     if (*selectPressedP1 == 1 || *selectPressedP2 == 1)
     {
         GAS::gaugeCycleIdx %= GAS::gaugeArr.size();
