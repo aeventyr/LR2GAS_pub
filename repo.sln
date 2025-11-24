@@ -7,18 +7,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LR2GAS", "LR2GAS\LR2GAS.vcx
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{73693DA7-26C1-40E4-9F3C-BE5739404583}.Debug|x64.ActiveCfg = Debug|x64
-		{73693DA7-26C1-40E4-9F3C-BE5739404583}.Debug|x64.Build.0 = Debug|x64
 		{73693DA7-26C1-40E4-9F3C-BE5739404583}.Debug|x86.ActiveCfg = Debug|Win32
 		{73693DA7-26C1-40E4-9F3C-BE5739404583}.Debug|x86.Build.0 = Debug|Win32
-		{73693DA7-26C1-40E4-9F3C-BE5739404583}.Release|x64.ActiveCfg = Release|x64
-		{73693DA7-26C1-40E4-9F3C-BE5739404583}.Release|x64.Build.0 = Release|x64
 		{73693DA7-26C1-40E4-9F3C-BE5739404583}.Release|x86.ActiveCfg = Release|Win32
 		{73693DA7-26C1-40E4-9F3C-BE5739404583}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection

@@ -1,8 +1,9 @@
 #include "gas.h"
 
+#include <cassert>
+
 unsigned int GAS::notesNum = 0;
 double GAS::bmsTotal = 300;
-bool GAS::expertMode = false;
 GAUGE_TYPE GAS::initialGauge = (GAUGE_TYPE) -1;
 std::vector<Gauge> GAS::gaugeArr = std::vector<Gauge>();
 unsigned int GAS::gaugeCycleIdx = 0;
@@ -10,16 +11,18 @@ unsigned int GAS::gaugeCycleIdx = 0;
 
 void GAS::Init()
 {
-	gaugeArr.clear();
-    gaugeArr.emplace_back(Gauge(GAUGE_P_ATTACK));
-    gaugeArr.emplace_back(Gauge(GAUGE_HAZARD));
-    gaugeArr.emplace_back(Gauge(GAUGE_HARD));
-    gaugeArr.emplace_back(Gauge(GAUGE_GROOVE));
-    gaugeArr.emplace_back(Gauge(GAUGE_EASY));
+    gaugeArr.clear();
+    gaugeArr.reserve(5);
+    gaugeArr.emplace_back(GAUGE_P_ATTACK);
+    gaugeArr.emplace_back(GAUGE_HAZARD);
+    gaugeArr.emplace_back(GAUGE_HARD);
+    gaugeArr.emplace_back(GAUGE_GROOVE);
+    gaugeArr.emplace_back(GAUGE_EASY);
 }
 
 Gauge& GAS::PickDisplay()
 {
+    assert(!gaugeArr.empty());
     unsigned int i = 0;
     for (; i < gaugeArr.size(); i++)
         if (gaugeArr[i].getType() == initialGauge)
@@ -27,7 +30,7 @@ Gauge& GAS::PickDisplay()
     for (; i < gaugeArr.size(); i++)
         if (gaugeArr[i].validForDisplay())
             return gaugeArr[i];
-    return gaugeArr[gaugeArr.size() - 1];
+    return gaugeArr.back();
 }
 
 double GAS::GetHealthMultiplier()
