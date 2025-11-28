@@ -114,7 +114,15 @@ void onJudgeNote()
 
 void onRecordGraphSample()
 {
+    volatile uintptr_t playerstatus_ptr = 0;
+    __asm {
+        push [ebp + 0x20]
+        pop playerstatus_ptr
+    }
     if (!canGas())
+        return;
+    int flag_active = *(int*)playerstatus_ptr;
+    if (!flag_active)
         return;
 
     for (Gauge& g : GAS::gaugeArr)
