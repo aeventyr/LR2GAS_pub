@@ -1,56 +1,33 @@
 #include <Windows.h>
+#include <thread>
 
 #include "lr2.h"
 
+#include <LR2Mem/LR2Bindings.hpp>
+
 using namespace LR2;
-
-// FIXME: hook into the main loop, get stack pointer from there. Current way can and will break on OS updates.
-static unsigned long long get_stack_offset()
-{
-    HMODULE ntdll = GetModuleHandle("ntdll.dll");
-    if (!ntdll)
-      return 0; // wtf bro
-
-    if (static_cast<void *>(GetProcAddress(ntdll, "wine_get_version")) != nullptr)
-        return 0xA30000; // Wine 10.0
-
-    OSVERSIONINFOEXW osInfo{};
-    NTSTATUS(WINAPI * RtlGetVersion)(LPOSVERSIONINFOEXW);
-    *(FARPROC*)&RtlGetVersion = GetProcAddress(ntdll, "RtlGetVersion");
-    if (RtlGetVersion != NULL)
-    {
-        osInfo.dwOSVersionInfoSize = sizeof(osInfo);
-        RtlGetVersion(&osInfo);
-    }
-
-    if (osInfo.dwMajorVersion >= 10)
-        return 0x10000;
-
-    return 0;
-}
 
 void LR2::initOffsets()
 {
-    const unsigned long long stack_offset = get_stack_offset();
+    while(!LR2::isInit)
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    LR2::game& game = *LR2::pGame;
 
-    bmsNotesNum = (int *)(stack_offset + 0xCC27C);
-    bmsTotal = (int *)(stack_offset + 0xCC28C);
-
-    gaugeType = (GAUGE_TYPE *)(stack_offset + 0xEF840);
-    battleType = (BATTLE_TYPE *)(stack_offset + 0xEF884);
-    selectPressedP1 = (char *)(stack_offset + 0x10F5D1);
-    selectPressedP2 = (char *)(stack_offset + 0x10F5E5);
-    gaugeValue = (double *)(stack_offset + 0x187200);
-    gaugeValueDisp = (double *)(stack_offset + 0x187210);
-    totalNotes = (int *)(stack_offset + 0x187278);
-    runningNotes = (int *)(stack_offset + 0x1872A4);
-    resultLamp = (LAMP_TYPE *)(stack_offset + 0x1872A8);
-    resultGraph = (int *)(stack_offset + 0x1873F4);
-    replayData = (ReplayCmd **)(stack_offset + 0x18F170);
-    replayIdx = (int *)(stack_offset + 0x18F178);
-    replayStatus = (int *)(stack_offset + 0x18F17C);
-    gbattleFlag = (char *)(stack_offset + 0x18F561);
-    expertType = (int *)(stack_offset + 0x18F688);
-
+    gaugeType = (GAUGE_TYPE *)(&game.config.play.gaugeOption[0]);
+    battleType = (BATTLE_TYPE *)(&game.config.play.battle);
+    selectPressedP1 = (char *)(&game.KeyInput.p1_buttonInput[13]);
+    selectPressedP2 = (char *)(&game.KeyInput.p2_buttonInput[13]);
+    gaugeValue = &game.gameplay.player[0].HP;
+    gaugeValueDisp = &game.gameplay.player[0].HP_print;
+    totalNotes = &game.gameplay.player[0].totalnotes;
+    runningNotes = &game.gameplay.player[0].note_current;
+    resultLamp = (LAMP_TYPE *)(&game.gameplay.player[0].clearType);
+    resultGraph = (int *)(&game.gameplay.statgraph[0].hp);
+    replayData = (ReplayCmd **)(&game.gameplay.replay.data);
+    replayIdx = &game.gameplay.replay.count;
+    replayStatus = &game.gameplay.replay.status;
+    gbattleFlag = &game.gameplay.ghostBattle;
+    expertType = &game.gameplay.courseType; // Not a mistake, this is what it pointed to originally.
+    
     pfAppendReplay = (int(__cdecl*) (int*, int, char, short))0x4C0C00;
 }
