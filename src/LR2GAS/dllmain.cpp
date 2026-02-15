@@ -6,6 +6,10 @@
 #include "setupjmp.h"
 #include "lr2.h"
 
+#include <LR2Mem/LR2Bindings.hpp>
+
+#pragma comment(lib, "LR2Mem.lib")
+
 void Setup(const HMODULE instance)
 {
     LR2::initOffsets();
@@ -24,6 +28,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH:
     {
+        LR2::Init();
         DisableThreadLibraryCalls(hModule);
         const auto thread = CreateThread(
             nullptr,

@@ -61,9 +61,6 @@ namespace LR2
     };
     inline const int GRAPH_SAMPLE_COUNT = 1000;
 
-    inline int* bmsNotesNum;
-    inline int* bmsTotal;
-
     inline GAUGE_TYPE* gaugeType;
     inline BATTLE_TYPE* battleType;
     inline char* selectPressedP1;

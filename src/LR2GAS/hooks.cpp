@@ -39,8 +39,6 @@ void onInitPlay()
 
     if (gasBlocked())
         return;
-    GAS::notesNum = *bmsNotesNum;
-    GAS::bmsTotal = *bmsTotal;
 
     console_log("play: gauge: %s\t", GAUGE_TYPE_STR[gauge]);
     console_log("notes: %d\ttotal: %d\n",
@@ -55,8 +53,6 @@ void onInitRetry()
 
     if (!canGas())
         return;
-    GAS::notesNum = *bmsNotesNum;
-    GAS::bmsTotal = *bmsTotal;
 
     console_log("retry: gauge: %s\t", GAUGE_TYPE_STR[*gaugeType]);
     console_log("notes: %d\ttotal: %d\n",
