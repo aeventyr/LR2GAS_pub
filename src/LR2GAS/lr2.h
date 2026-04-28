@@ -83,7 +83,7 @@ namespace LR2
 
     inline int(__cdecl *pfAppendReplay) (int*, int, char, short);
 
-    void initOffsets();
+    void matchOffsets();
 
 }
 

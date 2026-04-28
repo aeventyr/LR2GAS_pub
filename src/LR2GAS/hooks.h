@@ -3,14 +3,14 @@
 #include <vector>
 
 #include "logger.h"
-#include "memjmp.h"
+#include "safetyhook/safetyhook.hpp"
 
-void onParseChart();
-void onInitPlay();
-void onInitRetry();
-void onJudgeNote();
-void onRecordGraphSample();
-void onEnterResult();
-void onRefreshResult();
-void onEnterSongSelect();
+void onParseChart(SafetyHookContext& ctx);
+void onInitPlay(SafetyHookContext& ctx);
+void onInitRetry(SafetyHookContext& ctx);
+void onJudgeNote(SafetyHookContext& ctx);
+void onRecordGraphSample(SafetyHookContext& ctx);
+void onEnterResult(SafetyHookContext& ctx);
+void onRefreshResult(SafetyHookContext& ctx);
+void onEnterSongSelect(SafetyHookContext& ctx);
 

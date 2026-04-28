@@ -2,7 +2,7 @@
 
 #include <cstdio>
 
-//#define ENABLE_LOGGING
+#define ENABLE_LOGGING
 
 #ifdef ENABLE_LOGGING
 

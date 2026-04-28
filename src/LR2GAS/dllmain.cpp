@@ -12,10 +12,34 @@
 
 void Setup(const HMODULE instance)
 {
-    LR2::initOffsets();
-    SetupJmps();
+    SafetyHookMid hooks[HOOK_COUNT] = {};
+
+#ifdef ENABLE_LOGGING
+    FILE* f;
+    BOOL hResult = AllocConsole();
+    int fres = freopen_s(&f, "CONOUT$", "w", stderr);
+    if (fres != 0)
+    {
+        goto UNLOAD;
+    }
+#endif
+
+    LR2::Init();
+    LR2::matchOffsets();
+    SetupHooks(hooks);
     while (1)
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
+UNLOAD:
+
+#ifdef ENABLE_LOGGING
+    fclose(f);
+    FreeConsole();
+#endif
+
+    for (int i = 0; i < HOOK_COUNT; i++)
+    {
+        hooks[i].reset();
+    }
     FreeLibraryAndExitThread(instance, 0);
 }
 
@@ -28,7 +52,6 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH:
     {
-        LR2::Init();
         DisableThreadLibraryCalls(hModule);
         const auto thread = CreateThread(
             nullptr,

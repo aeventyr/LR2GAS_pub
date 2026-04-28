@@ -16,22 +16,22 @@ static bool canGas()
     return !GAS::gaugeArr.empty() && !gasBlocked();
 }
 
-void onParseChart()
+void onParseChart(SafetyHookContext& ctx)
 {
     int total;
     int notes;
     __asm
     {
-        PUSH[ebp + 0xDC]
+        PUSH[ebp + 0x18C]
         POP notes
-        PUSH[ebp + 0xEC]
+        PUSH[ebp + 0x19C]
         POP total
     };
     GAS::notesNum = notes;
     GAS::bmsTotal = total;
 }
 
-void onInitPlay()
+void onInitPlay(SafetyHookContext& ctx)
 {
     // record gauge
     GAUGE_TYPE gauge = *gaugeType;
@@ -46,7 +46,7 @@ void onInitPlay()
     GAS::Init();
 }
 
-void onInitRetry()
+void onInitRetry(SafetyHookContext& ctx)
 {
     // restore gauge
     *gaugeType = (GAUGE_TYPE)GAS::initialGauge;
@@ -60,7 +60,7 @@ void onInitRetry()
     GAS::Init();
 }
 
-void onJudgeNote()
+void onJudgeNote(SafetyHookContext& ctx)
 {
     if (!canGas())
         return;
@@ -70,9 +70,9 @@ void onJudgeNote()
     __asm
     {
         // grab cur judge & battle cond
-        PUSH[ebp + 0x1C]
+        PUSH[ebp + 0xCC]
         POP judge
-        PUSH[ebp + 0x24]
+        PUSH[ebp + 0xD4]
         POP isBattlePlayer
     };
     if (!isBattlePlayer)
@@ -108,11 +108,11 @@ void onJudgeNote()
 
 }
 
-void onRecordGraphSample()
+void onRecordGraphSample(SafetyHookContext& ctx)
 {
     volatile uintptr_t playerstatus_ptr = 0;
     __asm {
-        push [ebp + 0x20]
+        push [ebp + 0xD0]
         pop playerstatus_ptr
     }
     if (!canGas())
@@ -127,7 +127,7 @@ void onRecordGraphSample()
     }
 }
 
-void onEnterResult()
+void onEnterResult(SafetyHookContext& ctx)
 {
     if (!canGas())
         return;
@@ -146,7 +146,7 @@ void onEnterResult()
         resultGraph);
 }
 
-void onRefreshResult()
+void onRefreshResult(SafetyHookContext& ctx)
 {
     if (!canGas())
         return;
@@ -169,7 +169,7 @@ void onRefreshResult()
     }
 }
 
-void onEnterSongSelect()
+void onEnterSongSelect(SafetyHookContext& ctx)
 {
     // restore gauge
     if (GAS::initialGauge >= 0)

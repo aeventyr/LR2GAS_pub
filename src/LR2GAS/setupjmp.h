@@ -1,6 +1,7 @@
 #pragma once
 
-#include "memjmp.h"
 #include "hooks.h"
+#include "safetyhook/safetyhook.hpp"
 
-void SetupJmps();
+#define HOOK_COUNT 8
+void SetupHooks(SafetyHookMid[]);

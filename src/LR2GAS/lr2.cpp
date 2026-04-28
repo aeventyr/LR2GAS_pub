@@ -7,7 +7,7 @@
 
 using namespace LR2;
 
-void LR2::initOffsets()
+void LR2::matchOffsets()
 {
     while(!LR2::isInit)
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -27,7 +27,7 @@ void LR2::initOffsets()
     replayIdx = &game.gameplay.replay.count;
     replayStatus = &game.gameplay.replay.status;
     gbattleFlag = &game.gameplay.ghostBattle;
-    expertType = &game.gameplay.courseType; // Not a mistake, this is what it pointed to originally.
+    expertType = &game.gameplay.courseType; 
     
     pfAppendReplay = (int(__cdecl*) (int*, int, char, short))0x4C0C00;
 }
