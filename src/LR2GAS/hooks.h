@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "logger.h"
-#include "safetyhook/safetyhook.hpp"
+#include "LR2Mem/safetyhook/safetyhook.hpp"
 
 void onParseChart(SafetyHookContext& ctx);
 void onInitPlay(SafetyHookContext& ctx);

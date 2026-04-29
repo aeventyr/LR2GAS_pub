@@ -12,7 +12,7 @@
 
 void Setup(const HMODULE instance)
 {
-    SafetyHookMid hooks[HOOK_COUNT] = {};
+    std::vector<SafetyHookMid> hooks{};
 
 #ifdef ENABLE_LOGGING
     FILE* f;
@@ -29,6 +29,7 @@ void Setup(const HMODULE instance)
     SetupHooks(hooks);
     while (1)
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
 UNLOAD:
 
 #ifdef ENABLE_LOGGING
@@ -36,10 +37,6 @@ UNLOAD:
     FreeConsole();
 #endif
 
-    for (int i = 0; i < HOOK_COUNT; i++)
-    {
-        hooks[i].reset();
-    }
     FreeLibraryAndExitThread(instance, 0);
 }
 

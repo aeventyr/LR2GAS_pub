@@ -1,7 +1,6 @@
 #pragma once
 
 #include "hooks.h"
-#include "safetyhook/safetyhook.hpp"
+#include "LR2Mem/safetyhook/safetyhook.hpp"
 
-#define HOOK_COUNT 8
-void SetupHooks(SafetyHookMid[]);
+void SetupHooks(std::vector<SafetyHookMid>&);

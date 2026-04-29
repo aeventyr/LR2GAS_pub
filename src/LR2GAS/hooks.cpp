@@ -18,27 +18,19 @@ static bool canGas()
 
 void onParseChart(SafetyHookContext& ctx)
 {
-    int total;
-    int notes;
-    __asm
-    {
-        PUSH[ebp + 0x18C]
-        POP notes
-        PUSH[ebp + 0x19C]
-        POP total
-    };
-    GAS::notesNum = notes;
-    GAS::bmsTotal = total;
+    GAS::notesNum = *(unsigned int*)(ctx.esp + 0xD4);
+    // casts intentional
+    GAS::bmsTotal = (double) *(unsigned int*)(ctx.esp + 0xE4);
 }
 
 void onInitPlay(SafetyHookContext& ctx)
 {
+    if (gasBlocked())
+        return;
+
     // record gauge
     GAUGE_TYPE gauge = *gaugeType;
     GAS::initialGauge = gauge;
-
-    if (gasBlocked())
-        return;
 
     console_log("play: gauge: %s\t", GAUGE_TYPE_STR[gauge]);
     console_log("notes: %d\ttotal: %d\n",
@@ -48,11 +40,11 @@ void onInitPlay(SafetyHookContext& ctx)
 
 void onInitRetry(SafetyHookContext& ctx)
 {
-    // restore gauge
-    *gaugeType = (GAUGE_TYPE)GAS::initialGauge;
-
     if (!canGas())
         return;
+
+    // restore gauge
+    *gaugeType = (GAUGE_TYPE)GAS::initialGauge;
 
     console_log("retry: gauge: %s\t", GAUGE_TYPE_STR[*gaugeType]);
     console_log("notes: %d\ttotal: %d\n",
@@ -65,16 +57,10 @@ void onJudgeNote(SafetyHookContext& ctx)
     if (!canGas())
         return;
 
-    JUDGE_TYPE judge;
-    int isBattlePlayer;
-    __asm
-    {
-        // grab cur judge & battle cond
-        PUSH[ebp + 0xCC]
-        POP judge
-        PUSH[ebp + 0xD4]
-        POP isBattlePlayer
-    };
+    // grab current judge & battle status
+    JUDGE_TYPE judge = (JUDGE_TYPE) *(int*)(ctx.esp + 0x14);
+    int isBattlePlayer = *(int*)(ctx.esp + 0x1C);
+
     if (!isBattlePlayer)
     {
         // update gauge
@@ -110,15 +96,11 @@ void onJudgeNote(SafetyHookContext& ctx)
 
 void onRecordGraphSample(SafetyHookContext& ctx)
 {
-    volatile uintptr_t playerstatus_ptr = 0;
-    __asm {
-        push [ebp + 0xD0]
-        pop playerstatus_ptr
-    }
     if (!canGas())
         return;
-    int flag_active = *(int*)playerstatus_ptr;
-    if (!flag_active)
+
+    int playerstatus = *(int*)(ctx.esp + 0x18);
+    if (!playerstatus)
         return;
 
     for (Gauge& g : GAS::gaugeArr)
