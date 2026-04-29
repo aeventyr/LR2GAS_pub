@@ -14,7 +14,7 @@ void Setup(const HMODULE instance)
 {
     std::vector<SafetyHookMid> hooks{};
 
-#ifdef ENABLE_LOGGING
+#ifdef _CONSOLE
     FILE* f;
     BOOL hResult = AllocConsole();
     int fres = freopen_s(&f, "CONOUT$", "w", stderr);
@@ -32,7 +32,7 @@ void Setup(const HMODULE instance)
 
 UNLOAD:
 
-#ifdef ENABLE_LOGGING
+#ifdef _CONSOLE
     fclose(f);
     FreeConsole();
 #endif
