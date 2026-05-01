@@ -16,6 +16,37 @@ static bool canGas()
     return !GAS::gaugeArr.empty() && !gasBlocked();
 }
 
+static void handleJudge(JUDGE_TYPE judge, int mineDamage)
+{
+    // update gauge
+    for (Gauge& g : GAS::gaugeArr)
+        g.onJudge(judge, mineDamage);
+    // overwrite game gauge
+    auto prevGauge = *gaugeType;
+    Gauge& displayGauge = GAS::PickDisplay();
+    *gaugeType = (GAUGE_TYPE)displayGauge.getType();
+    *gaugeValue = displayGauge.getValue();
+
+    if (*replayStatus == 1 &&
+        *gaugeType != prevGauge)
+    {
+        // update replay gauge
+        ReplayCmd temp = (*replayData)[*replayIdx - 1];
+        pfAppendReplay((int*)replayData, temp.time, 101,
+            *gaugeType);
+        (*replayData)[*replayIdx - 2] = (*replayData)[*replayIdx - 1];
+        (*replayData)[*replayIdx - 1] = temp;
+    }
+
+    console_log("judge:%d\tgauge:%s\t",
+        judge, GAUGE_TYPE_STR[displayGauge.getType()]);
+    for (Gauge& g : GAS::gaugeArr)
+    {
+        console_log("%.2lf\t", g.getValue());
+    }
+    console_log("\n");
+}
+
 void onParseChart(SafetyHookContext& ctx)
 {
     GAS::notesNum = *(unsigned int*)(ctx.esp + 0xD4);
@@ -52,6 +83,17 @@ void onInitRetry(SafetyHookContext& ctx)
     GAS::Init();
 }
 
+void onJudgeMine(SafetyHookContext& ctx)
+{
+    if (!canGas())
+        return;
+
+    JUDGE_TYPE judge = (JUDGE_TYPE) * (int*)(ctx.esp + 0xC);
+    int mineDamage = *(int*)(ctx.esp + 0x1C);
+
+    handleJudge(judge, mineDamage);
+}
+
 void onJudgeNote(SafetyHookContext& ctx)
 {
     if (!canGas())
@@ -63,35 +105,8 @@ void onJudgeNote(SafetyHookContext& ctx)
 
     if (!isBattlePlayer)
     {
-        // update gauge
-        for (Gauge& g : GAS::gaugeArr)
-            g.onJudge(judge);
-        // overwrite game gauge
-        auto prevGauge = *gaugeType;
-        Gauge& displayGauge = GAS::PickDisplay();
-        *gaugeType = (GAUGE_TYPE)displayGauge.getType();
-        *gaugeValue = displayGauge.getValue();
-
-        if (*replayStatus == 1 &&
-            *gaugeType != prevGauge)
-        {
-            // update replay gauge
-            ReplayCmd temp = (*replayData)[*replayIdx - 1];
-            pfAppendReplay((int*)replayData, temp.time, 101,
-                *gaugeType);
-            (*replayData)[*replayIdx - 2] = (*replayData)[*replayIdx - 1];
-            (*replayData)[*replayIdx - 1] = temp;
-        }
-
-        console_log("judge:%d\tgauge:%s\t",
-            judge, GAUGE_TYPE_STR[displayGauge.getType()]);
-        for (Gauge& g : GAS::gaugeArr)
-        {
-            console_log("%.2lf\t", g.getValue());
-        }
-        console_log("\n");
+        handleJudge(judge, 0);
     }
-
 }
 
 void onRecordGraphSample(SafetyHookContext& ctx)

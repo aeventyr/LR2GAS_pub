@@ -76,18 +76,24 @@ Gauge::Gauge(GAUGE_TYPE gaugeType)
 	}
 }
 
-void Gauge::onJudge(int judge)
+void Gauge::onJudge(int judge, int mineDamage)
 {
 	if (failed)
 		return;
-
-	bool applyLowHealthMultiplier = (int(gaugeValue) / 2 * 2 <= 30)
-		&& (gaugeType != GAUGE_GROOVE && gaugeType != GAUGE_EASY)
-		&& judge <= BAD;
-	if (applyLowHealthMultiplier)
-		gaugeValue += 0.6 * judgeGaugeIncrements[judge];
+	if (mineDamage == 0)
+	{
+		bool applyLowHealthMultiplier = (int(gaugeValue) / 2 * 2 <= 30)
+			&& (gaugeType != GAUGE_GROOVE && gaugeType != GAUGE_EASY)
+			&& judge <= BAD;
+		if (applyLowHealthMultiplier)
+			gaugeValue += 0.6 * judgeGaugeIncrements[judge];
+		else
+			gaugeValue += judgeGaugeIncrements[judge];
+	}
 	else
-		gaugeValue += judgeGaugeIncrements[judge];
+	{
+		gaugeValue -= mineDamage;
+	}
 
 	if (gaugeValue <= 2.0)
 	{
