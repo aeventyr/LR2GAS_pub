@@ -2,7 +2,9 @@
 
 #include <cstdio>
 
-#ifdef _CONSOLE
+#define ENABLE_LOGGING
+
+#ifdef ENABLE_LOGGING
 
 #define console_log(...) fprintf(stderr, __VA_ARGS__)
 
