@@ -27,17 +27,6 @@ static void handleJudge(JUDGE_TYPE judge, int mineDamage)
     *gaugeType = (GAUGE_TYPE)displayGauge.getType();
     *gaugeValue = displayGauge.getValue();
 
-    if (*replayStatus == 1 &&
-        *gaugeType != prevGauge)
-    {
-        // update replay gauge
-        ReplayCmd temp = (*replayData)[*replayIdx - 1];
-        pfAppendReplay((int*)replayData, temp.time, 101,
-            *gaugeType);
-        (*replayData)[*replayIdx - 2] = (*replayData)[*replayIdx - 1];
-        (*replayData)[*replayIdx - 1] = temp;
-    }
-
     console_log("judge:%d\tgauge:%s\t",
         judge, GAUGE_TYPE_STR[displayGauge.getType()]);
     for (Gauge& g : GAS::gaugeArr)
@@ -173,4 +162,17 @@ void onEnterSongSelect(SafetyHookContext& ctx)
         *gaugeType = GAS::initialGauge;
 }
 
-
+int __cdecl onSaveReplay(LR2::REPLAY* rp, LR2::CSTR songMD5, LR2::CSTR localID)
+{
+    auto OverwriteReplayData = [](REPLAY* rp, unsigned char op, short value) {
+        for (int i = 0; i < rp->count; i++) {
+            ReplayData& data = rp->data[i];
+            if (data.op == op) {
+                data.value = value;
+                break;
+            }
+        }
+    };
+    OverwriteReplayData(rp, 0x65, static_cast<short>(*gaugeType));
+    return SaveReplay.ccall<int>(rp, songMD5, localID);
+}
