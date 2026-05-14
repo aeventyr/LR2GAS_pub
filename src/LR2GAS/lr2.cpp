@@ -27,7 +27,5 @@ void LR2::matchOffsets()
     replayIdx = &game.gameplay.replay.count;
     replayStatus = &game.gameplay.replay.status;
     gbattleFlag = &game.gameplay.ghostBattle;
-    expertType = &game.gameplay.courseType; 
-    
-    pfAppendReplay = (int(__cdecl*) (int*, int, char, short))0x4C0C00;
+    expertType = &game.gameplay.courseType;
 }

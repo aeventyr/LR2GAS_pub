@@ -81,8 +81,6 @@ namespace LR2
     inline char* gbattleFlag;
     inline int* expertType;
 
-    inline int(__cdecl *pfAppendReplay) (int*, int, char, short);
-
     void matchOffsets();
 
 }
