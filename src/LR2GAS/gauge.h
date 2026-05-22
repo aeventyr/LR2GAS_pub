@@ -19,7 +19,7 @@ public:
 
     Gauge(GAUGE_TYPE gaugeType);
 
-    void onJudge(int judge);
+    void onJudge(int judge, int mineDamage);
     void recordGraphSample();
     void recordGraphSample(int);
     void fillGraph();

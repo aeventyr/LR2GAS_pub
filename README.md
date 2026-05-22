@@ -1,4 +1,3 @@
-# LR2GAS_pub
 
 A re-written version of LR2GAS based on [mat's ](https://github.com/MatVeiQaaa/LR2GAS) GAS plugin
 
@@ -15,10 +14,8 @@ A re-written version of LR2GAS based on [mat's ](https://github.com/MatVeiQaaa/L
 
 This plugin works through [injection](https://en.wikipedia.org/wiki/DLL_injection), which may cause undesired side effects not limited to memory corruption or system vulnerabilities. Use it at your own risk!
 
-lr2.cpp and setupjmp.cpp are intentionally omitted in this repo. 
-
 Please report crashes/bugs found while using. Thanks.
 
 ## Credit
 
-Thanks mat for his precious advice and help, and thanks to all the people who tested and reported bugs.
+Thanks everyone who assisted the development efforts and tested this plugin. Your help are very appreciated.

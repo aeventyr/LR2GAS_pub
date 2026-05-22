@@ -1,0 +1,3 @@
+[submodule "ext/LR2Mem"]
+	path = ext/LR2Mem
+	url = https://github.com/MatVeiQaaa/LR2Mem.git

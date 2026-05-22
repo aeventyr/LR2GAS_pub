@@ -61,12 +61,10 @@ namespace LR2
     };
     inline const int GRAPH_SAMPLE_COUNT = 1000;
 
-    inline int* bmsNotesNum;
-    inline int* bmsTotal;
-
     inline GAUGE_TYPE* gaugeType;
     inline BATTLE_TYPE* battleType;
-    inline char* selectPressed;
+    inline char* selectPressedP1;
+    inline char* selectPressedP2;
     inline double* gaugeValue;
     inline double* gaugeValueDisp;
     inline int* totalNotes;
@@ -83,9 +81,7 @@ namespace LR2
     inline char* gbattleFlag;
     inline int* expertType;
 
-    inline int(__cdecl *pfAppendReplay) (int*, int, char, short);
-
-    void initOffsets();
+    void matchOffsets();
 
 }
 

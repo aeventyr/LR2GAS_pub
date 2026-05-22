@@ -6,12 +6,37 @@
 #include "setupjmp.h"
 #include "lr2.h"
 
+#include <LR2Mem/LR2Bindings.hpp>
+
+#pragma comment(lib, "LR2Mem.lib")
+
 void Setup(const HMODULE instance)
 {
-    LR2::initOffsets();
-    SetupJmps();
+    std::vector<SafetyHookMid> hooks{};
+
+#ifdef ENABLE_LOGGING
+    FILE* f;
+    BOOL hResult = AllocConsole();
+    int fres = freopen_s(&f, "CONOUT$", "w", stderr);
+    if (fres != 0)
+    {
+        goto UNLOAD;
+    }
+#endif
+
+    LR2::Init();
+    LR2::matchOffsets();
+    SetupHooks(hooks);
     while (1)
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+UNLOAD:
+
+#ifdef ENABLE_LOGGING
+    fclose(f);
+    FreeConsole();
+#endif
+
     FreeLibraryAndExitThread(instance, 0);
 }
 

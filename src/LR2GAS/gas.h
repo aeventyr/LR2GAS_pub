@@ -13,7 +13,6 @@ class GAS
 public:
     static unsigned int notesNum;
     static double bmsTotal;
-    static bool expertMode;
     static GAUGE_TYPE initialGauge;
     static std::vector<Gauge> gaugeArr;
     static unsigned int gaugeCycleIdx;
